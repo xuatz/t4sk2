@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import * as actions from "../actions/taskActions";
 import TaskItem from "./TaskItem";
+import TaskDetails from "./TaskDetails";
 
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -39,7 +40,10 @@ const mapDispatchToProps = dispatch => ({
 class Main extends Component {
     state = {
         taskTitle: "",
-        isDeleteTaskDialogOpen: false
+        isDeleteTaskDialogOpen: false,
+        selectedTask: {
+            title: "SAMEPLT TASK TITLE"
+        }
     };
 
     componentDidMount() {
@@ -87,6 +91,12 @@ class Main extends Component {
         }));
     };
 
+    handleOnClickItem = task => {
+        this.setState({
+            selectedTask: task
+        });
+    };
+
     handleOnClickOkay = () => {
         this.props.actions.taskDelete(this.state.focusedTask.id).then(res => {
             if (res.status === 200) {
@@ -106,75 +116,103 @@ class Main extends Component {
     };
 
     render() {
+        console.log(this.state);
         return (
             <div>
-                <form
-                    onSubmit={e => {
-                        e.preventDefault();
-                        this.taskAdd(this.state.taskTitle);
-                    }}>
-                    <input
-                        style={{
-                            fontSize: "1.5em",
-                            padding: "10px"
-                        }}
-                        value={this.state.taskTitle}
-                        onChange={e => {
-                            this.setState({
-                                taskTitle: e.target.value
-                            });
-                        }}
-                    />
-                </form>
-                {this.props.tasks && (
-                    <List
-                        dense={false}
-                        style={{
-                            margin: "auto",
-                            width: "100%",
-                            maxWidth: 360
-                        }}>
-                        {this.props.tasks.map((task, key) => {
-                            return (
-                                <TaskItem
-                                    key={key}
-                                    task={task}
-                                    onClickDelete={this.handleOnClickDelete}
-                                />
-                            );
-                        })}
-                    </List>
-                )}
-                <Dialog
-                    maxWidth="xs"
-                    aria-labelledby="confirmation-dialog-title"
-                    open={this.state.isDeleteTaskDialogOpen}
-                    onClose={this.handleCancel}
-                    onBackdropClick={this.handleCancel}
-                    value="demoValue">
-                    <DialogTitle id="confirmation-dialog-title">
-                        Are you sure you want to delete?
-                    </DialogTitle>
-                    <DialogContent>
-                        <span>hey</span>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            onClick={this.handleOnClickCancel}
-                            color="primary">
-                            Cancel
-                        </Button>
-                        <Button
-                            onClick={this.handleOnClickOkay}
-                            color="primary">
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                <MainContainer>
+                    <LeftPanel>
+                        <form
+                            onSubmit={e => {
+                                e.preventDefault();
+                                this.taskAdd(this.state.taskTitle);
+                            }}>
+                            <input
+                                style={{ fontSize: "1.5em", padding: "10px" }}
+                                value={this.state.taskTitle}
+                                onChange={e => {
+                                    this.setState({
+                                        taskTitle: e.target.value
+                                    });
+                                }}
+                            />
+                        </form>
+                        {this.props.tasks && (
+                            <List
+                                dense={false}
+                                style={{
+                                    margin: "auto",
+                                    width: "100%",
+                                    maxWidth: 360
+                                }}>
+                                {this.props.tasks.map((task, key) => {
+                                    return (
+                                        <TaskItem
+                                            key={key}
+                                            task={task}
+                                            onClickItem={this.handleOnClickItem}
+                                            onClickDelete={
+                                                this.handleOnClickDelete
+                                            }
+                                        />
+                                    );
+                                })}
+                            </List>
+                        )}
+                        <Dialog
+                            maxWidth="xs"
+                            aria-labelledby="confirmation-dialog-title"
+                            open={this.state.isDeleteTaskDialogOpen}
+                            onClose={this.handleCancel}
+                            onBackdropClick={this.handleCancel}
+                            value="demoValue">
+                            <DialogTitle id="confirmation-dialog-title">
+                                Are you sure you want to delete?
+                            </DialogTitle>
+                            <DialogContent>
+                                <span>hey</span>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button
+                                    onClick={this.handleOnClickCancel}
+                                    color="primary">
+                                    Cancel
+                                </Button>
+                                <Button
+                                    onClick={this.handleOnClickOkay}
+                                    color="primary">
+                                    Ok
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </LeftPanel>
+                    <RightPanel>
+                        <div style={{ background: "orange", padding: "10px" }}>
+                            placeholder header
+                        </div>
+                        {this.state.selectedTask && (
+                            <TaskDetails task={this.state.selectedTask} />
+                        )}
+                    </RightPanel>
+                </MainContainer>
             </div>
         );
     }
 }
+
+const MainContainer = styled.div`
+    display: flex;
+`;
+
+const LeftPanel = styled.div`
+    width: 35%;
+    background: lightyellow;
+    padding: 30px 0px;
+`;
+
+const RightPanel = styled.div`
+    width: 65%;
+    background: lightblue;
+`;
 
 const Grid = styled.div`
     display: grid;

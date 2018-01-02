@@ -13,6 +13,9 @@ class TaskItem extends Component {
                 <ListItemText
                     primary={this.props.task.title}
                     secondary="Placeholder secondary text"
+                    onClick={() => {
+                        this.props.onClickItem(this.props.task);
+                    }}
                 />
                 <ListItemSecondaryAction>
                     <IconButton aria-label="Delete">
