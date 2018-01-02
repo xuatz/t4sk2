@@ -4,11 +4,7 @@ import PouchDB from "pouchdb";
 export const taskAdd = title => {
     return (dispatch, getState) => {
         dispatch({ type: "TASK_ADD", task: { id: uuid(), title } });
-
         let state = getState();
-
-        console.log(state);
-
         return Promise.resolve({ status: 200 });
     };
 };

@@ -6,12 +6,10 @@ class TaskDetails extends Component {
     };
 
     render() {
-        console.log("this.state", JSON.stringify(this.state));
         return (
             <div style={{ textAlign: "left", padding: "10px 20px" }}>
                 <div
                     onClick={() => {
-                        console.log("hey");
                         this.setState({
                             titleOnClick: true,
                             task: this.props.task
