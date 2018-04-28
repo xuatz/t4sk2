@@ -1,0 +1,189 @@
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import styled from "styled-components";
+
+import * as actions from "../actions/taskActions";
+
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogTitle
+} from "material-ui/Dialog";
+
+import Button from "material-ui/Button";
+import List, {
+    ListItem,
+    ListItemAvatar,
+    ListItemIcon,
+    ListItemSecondaryAction,
+    ListItemText
+} from "material-ui/List";
+
+import { withStyles } from "material-ui/styles";
+
+import IconButton from "material-ui/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+const mapStateToProps = state => {
+    return {
+        tasks: state.tasks
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+    //xz: sample for different pattern to bindActionCreators
+    // actions: bindActionCreators({
+    // 	...inboundActions,
+    // 	load: (line) => {
+    // 		return (dispatch) => {
+    // 			dispatch(actions.load('line', line))
+    // 		}
+    // 	}
+    // }, dispatch)
+    actions: bindActionCreators(actions, dispatch)
+    // load: line => {
+    // 	dispatch(actions.load("line", line));
+    // }
+});
+
+class Main extends Component {
+    state = {
+        taskTitle: ""
+    };
+
+    componentDidMount() {
+        // remote_db
+        //     .getSession()
+        //     .then(res => {
+        //         if (!res.userCtx.name) {
+        //             // nobody's logged in
+        //             console.log("noboby nobody but you");
+        //         } else {
+        //             // response.userCtx.name is the current user
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         return remote_db.signUp({
+        //             username: "testuser1",
+        //             password: "12345678"
+        //         });
+        //     })
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(err => {});
+        // db.get("tasks").then(doc => {
+        //     console.log(doc);
+        //     this.setState({ tasks: doc.tasks });
+        // });
+    }
+
+    addTask(title) {
+        this.props.actions.addTask(title).then(res => {
+            if (res.status == 200) {
+                this.setState({
+                    taskTitle: ""
+                });
+            }
+        });
+    }
+    render() {
+        return (
+            <div>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        this.addTask(this.state.taskTitle);
+                    }}
+                >
+                    <input
+                        value={this.state.taskTitle}
+                        onChange={e => {
+                            this.setState({
+                                taskTitle: e.target.value
+                            });
+                        }}
+                    />
+                </form>
+                {this.props.tasks && (
+                    <List
+                        dense={false}
+                        style={{
+                            margin: "auto",
+                            width: "100%",
+                            maxWidth: 360
+                        }}
+                    >
+                        {this.props.tasks.map((task, key) => {
+                            return <TaskItem key={key} task={task} />;
+                        })}
+                    </List>
+                )}
+            </div>
+        );
+    }
+}
+
+const Grid = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+`;
+
+const styles = theme => ({
+    root: {
+        width: "100%",
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper
+    }
+});
+
+class TaskItem extends Component {
+    state = {
+        isOpen: false
+    };
+
+    render() {
+        return (
+            <ListItem>
+                <ListItemText
+                    primary="Single-line item"
+                    secondary="Secondary text"
+                />
+                <ListItemSecondaryAction>
+                    <IconButton aria-label="Delete">
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
+                <Dialog
+                    disableBackdropClick
+                    disableEscapeKeyDown
+                    maxWidth="xs"
+                    aria-labelledby="confirmation-dialog-title"
+                    open={false}
+                    onClose={() => {}}
+                    value="demoValue"
+                >
+                    <DialogTitle id="confirmation-dialog-title">
+                        Phone Ringtone
+                    </DialogTitle>
+                    <DialogContent>
+                        <span>hey</span>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleCancel} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleOk} color="primary">
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </ListItem>
+        );
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
