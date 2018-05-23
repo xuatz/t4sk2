@@ -4,26 +4,15 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import * as actions from "../actions/taskActions";
+import TaskItem from "./TaskItem";
 
+import Button from "material-ui/Button";
+import List from "material-ui/List";
 import Dialog, {
     DialogActions,
     DialogContent,
     DialogTitle
 } from "material-ui/Dialog";
-
-import Button from "material-ui/Button";
-import List, {
-    ListItem,
-    ListItemAvatar,
-    ListItemIcon,
-    ListItemSecondaryAction,
-    ListItemText
-} from "material-ui/List";
-
-import { withStyles } from "material-ui/styles";
-
-import IconButton from "material-ui/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 const mapStateToProps = state => {
     return {
@@ -49,7 +38,8 @@ const mapDispatchToProps = dispatch => ({
 
 class Main extends Component {
     state = {
-        taskTitle: ""
+        taskTitle: "",
+        isDeleteTaskDialogOpen: false
     };
 
     componentDidMount() {
@@ -80,25 +70,54 @@ class Main extends Component {
         // });
     }
 
-    addTask(title) {
-        this.props.actions.addTask(title).then(res => {
-            if (res.status == 200) {
+    taskAdd = title => {
+        this.props.actions.taskAdd(title).then(res => {
+            if (res.status === 200) {
                 this.setState({
                     taskTitle: ""
                 });
             }
         });
-    }
+    };
+
+    handleOnClickDelete = task => {
+        this.setState(prevState => ({
+            isDeleteTaskDialogOpen: true,
+            focusedTask: task
+        }));
+    };
+
+    handleOnClickOkay = () => {
+        this.props.actions.taskDelete(this.state.focusedTask.id).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    isDeleteTaskDialogOpen: false,
+                    focusedTask: null
+                });
+            }
+        });
+    };
+
+    handleOnClickCancel = () => {
+        this.setState({
+            isDeleteTaskDialogOpen: false,
+            focusedTask: null
+        });
+    };
+
     render() {
         return (
             <div>
                 <form
                     onSubmit={e => {
                         e.preventDefault();
-                        this.addTask(this.state.taskTitle);
-                    }}
-                >
+                        this.taskAdd(this.state.taskTitle);
+                    }}>
                     <input
+                        style={{
+                            fontSize: "1.5em",
+                            padding: "10px"
+                        }}
                         value={this.state.taskTitle}
                         onChange={e => {
                             this.setState({
@@ -114,13 +133,44 @@ class Main extends Component {
                             margin: "auto",
                             width: "100%",
                             maxWidth: 360
-                        }}
-                    >
+                        }}>
                         {this.props.tasks.map((task, key) => {
-                            return <TaskItem key={key} task={task} />;
+                            return (
+                                <TaskItem
+                                    key={key}
+                                    task={task}
+                                    onClickDelete={this.handleOnClickDelete}
+                                />
+                            );
                         })}
                     </List>
                 )}
+                <Dialog
+                    maxWidth="xs"
+                    aria-labelledby="confirmation-dialog-title"
+                    open={this.state.isDeleteTaskDialogOpen}
+                    onClose={this.handleCancel}
+                    onBackdropClick={this.handleCancel}
+                    value="demoValue">
+                    <DialogTitle id="confirmation-dialog-title">
+                        Are you sure you want to delete?
+                    </DialogTitle>
+                    <DialogContent>
+                        <span>hey</span>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={this.handleOnClickCancel}
+                            color="primary">
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={this.handleOnClickOkay}
+                            color="primary">
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         );
     }
@@ -139,51 +189,5 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper
     }
 });
-
-class TaskItem extends Component {
-    state = {
-        isOpen: false
-    };
-
-    render() {
-        return (
-            <ListItem>
-                <ListItemText
-                    primary="Single-line item"
-                    secondary="Secondary text"
-                />
-                <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
-                <Dialog
-                    disableBackdropClick
-                    disableEscapeKeyDown
-                    maxWidth="xs"
-                    aria-labelledby="confirmation-dialog-title"
-                    open={false}
-                    onClose={() => {}}
-                    value="demoValue"
-                >
-                    <DialogTitle id="confirmation-dialog-title">
-                        Phone Ringtone
-                    </DialogTitle>
-                    <DialogContent>
-                        <span>hey</span>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleCancel} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleOk} color="primary">
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </ListItem>
-        );
-    }
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
