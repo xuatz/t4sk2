@@ -6,13 +6,13 @@ import styled from "styled-components";
 import * as actions from "../actions/taskActions";
 import TaskItem from "./TaskItem";
 
-import Button from "material-ui/Button";
-import List from "material-ui/List";
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogTitle
-} from "material-ui/Dialog";
+import Button from "@material-ui/core/Button";
+import List from "@material-ui/core/List";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const mapStateToProps = state => {
     return {
@@ -190,4 +190,7 @@ const styles = theme => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Main);

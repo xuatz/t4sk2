@@ -1,12 +1,9 @@
 import React, { Component } from "react";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 
-import {
-    ListItem,
-    ListItemSecondaryAction,
-    ListItemText
-} from "material-ui/List";
-
-import IconButton from "material-ui/IconButton";
+import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 class TaskItem extends Component {
