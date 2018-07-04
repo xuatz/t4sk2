@@ -120,69 +120,79 @@ class Main extends Component {
             <div>
                 <MainContainer>
                     <LeftPanel>
-                        <form
-                            onSubmit={e => {
-                                e.preventDefault();
-                                this.taskAdd(this.state.taskTitle);
-                            }}>
-                            <input
-                                style={{ fontSize: "1.5em", padding: "10px" }}
-                                value={this.state.taskTitle}
-                                onChange={e => {
-                                    this.setState({
-                                        taskTitle: e.target.value
-                                    });
-                                }}
-                            />
-                        </form>
-                        {this.props.tasks && (
-                            <List
-                                dense={false}
-                                style={{
-                                    margin: "auto",
-                                    width: "100%",
-                                    maxWidth: 360
+                        <div style={{ height: "20vh" }}>
+                            <form
+                                style={{ padding: "30px 0px" }}
+                                onSubmit={e => {
+                                    e.preventDefault();
+                                    this.taskAdd(this.state.taskTitle);
                                 }}>
-                                {this.props.tasks.map((task, key) => {
-                                    return (
-                                        <TaskItem
-                                            key={key}
-                                            task={task}
-                                            onClickItem={this.handleOnClickItem}
-                                            onClickDelete={
-                                                this.handleOnClickDelete
-                                            }
-                                        />
-                                    );
-                                })}
-                            </List>
-                        )}
-                        <Dialog
-                            maxWidth="xs"
-                            aria-labelledby="confirmation-dialog-title"
-                            open={this.state.isDeleteTaskDialogOpen}
-                            onClose={this.handleCancel}
-                            onBackdropClick={this.handleCancel}
-                            value="demoValue">
-                            <DialogTitle id="confirmation-dialog-title">
-                                Are you sure you want to delete?
-                            </DialogTitle>
-                            <DialogContent>
-                                <span>hey</span>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button
-                                    onClick={this.handleOnClickCancel}
-                                    color="primary">
-                                    Cancel
-                                </Button>
-                                <Button
-                                    onClick={this.handleOnClickOkay}
-                                    color="primary">
-                                    Ok
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
+                                <input
+                                    style={{
+                                        fontSize: "1.5em",
+                                        padding: "10px"
+                                    }}
+                                    value={this.state.taskTitle}
+                                    onChange={e => {
+                                        this.setState({
+                                            taskTitle: e.target.value
+                                        });
+                                    }}
+                                />
+                            </form>
+                        </div>
+                        <div style={{ height: "80vh", overflow: "auto" }}>
+                            {this.props.tasks && (
+                                <List
+                                    dense={false}
+                                    style={{
+                                        margin: "auto",
+                                        width: "100%",
+                                        maxWidth: 360
+                                    }}>
+                                    {this.props.tasks.map((task, key) => {
+                                        return (
+                                            <TaskItem
+                                                key={key}
+                                                task={task}
+                                                onClickItem={
+                                                    this.handleOnClickItem
+                                                }
+                                                onClickDelete={
+                                                    this.handleOnClickDelete
+                                                }
+                                            />
+                                        );
+                                    })}
+                                </List>
+                            )}
+                            <Dialog
+                                maxWidth="xs"
+                                aria-labelledby="confirmation-dialog-title"
+                                open={this.state.isDeleteTaskDialogOpen}
+                                onClose={this.handleCancel}
+                                onBackdropClick={this.handleCancel}
+                                value="demoValue">
+                                <DialogTitle id="confirmation-dialog-title">
+                                    Are you sure you want to delete?
+                                </DialogTitle>
+                                <DialogContent>
+                                    <span>hey</span>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button
+                                        onClick={this.handleOnClickCancel}
+                                        color="primary">
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={this.handleOnClickOkay}
+                                        color="primary">
+                                        Ok
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        </div>
                     </LeftPanel>
                     <RightPanel>
                         <div style={{ background: "orange", padding: "10px" }}>
@@ -203,13 +213,12 @@ const MainContainer = styled.div`
 `;
 
 const LeftPanel = styled.div`
-    width: 35%;
+    width: 30%;
     background: lightyellow;
-    padding: 30px 0px;
 `;
 
 const RightPanel = styled.div`
-    width: 65%;
+    width: 70%;
     background: lightblue;
 `;
 

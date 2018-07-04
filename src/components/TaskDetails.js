@@ -6,6 +6,8 @@ class TaskDetails extends Component {
     };
 
     render() {
+        let { title, description } = this.props.task;
+
         return (
             <div style={{ textAlign: "left", padding: "10px 20px" }}>
                 <div
@@ -42,8 +44,48 @@ class TaskDetails extends Component {
                         <h1>{this.props.task.title}</h1>
                     )}
                 </div>
-
-                <div style={{}}>{this.props.task.title}</div>
+                <div
+                    onClick={() => {
+                        this.setState({
+                            descriptionOnClick: true,
+                            titleOnClick: false,
+                            content: this.props.task.description
+                        });
+                    }}>
+                    {this.state.descriptionOnClick ? (
+                        <form
+                            onSubmit={event => {
+                                event.preventDefault();
+                                console.log("hey its me, onSubmit");
+                            }}>
+                            <textarea
+                                autoFocus
+                                onBlur={event => {
+                                    console.log("hey its me, onblur");
+                                    this.setState({
+                                        descriptionOnClick: false,
+                                        titleOnClick: false,
+                                        content: "",
+                                        form: {}
+                                    });
+                                }}
+                                name="description"
+                                value={this.state.content}
+                                onChange={event => {
+                                    this.setState({
+                                        content: event.target.value,
+                                        form: {
+                                            [event.target.name]:
+                                                event.target.value
+                                        }
+                                    });
+                                }}
+                            />
+                        </form>
+                    ) : (
+                        <p>{description ? description : "No Description!"}</p>
+                    )}
+                </div>
             </div>
         );
     }
