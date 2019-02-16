@@ -8,17 +8,17 @@ import { store, persistor } from "./store";
 import Main from "./components/Main";
 
 class App extends Component {
-    render() {
-        return (
-            <div className="App">
-                <Provider store={store}>
-                    <PersistGate loading={null} persistor={persistor}>
-                        <Main />
-                    </PersistGate>
-                </Provider>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="App">
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Main />
+          </PersistGate>
+        </Provider>
+      </div>
+    );
+  }
 }
 
 export default App;
