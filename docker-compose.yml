@@ -1,11 +1,20 @@
-version: '3.1'
+version: "3.1"
 
 services:
-  couchdb:
-    container_name: couchdb
+  client:
+    image: t4sk2:development
+    restart: always
+    build:
+      context: .
+      dockerfile: ./resources/Dockerfile.dev
+    volumes:
+      - .:/code
+    ports:
+      - 12001:3000
+  database:
     image: couchdb:latest
     restart: always
     volumes:
-      - /Users/xuatz/couchdb:/opt/couchdb/data
+      - ./tmp/couchdb:/opt/couchdb/data
     ports:
-      - 5984:5984
+      - 12002:5984
