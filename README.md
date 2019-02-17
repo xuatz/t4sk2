@@ -2,14 +2,29 @@ An offline-first, 645th attempt to make an awesome todolist for myself. Wish me 
 
 # Get Started
 
-1.  install node
-    1.  https://github.com/creationix/nvm
-1.  `git clone <url>`
-1.  cd t4sk2
-1.  `docker-compose up -d` (installs and run couchdb container)
-    1.  `docker-compose up --force-recreate -d` (might be useful if you are doing development with docker instead of local machine)
-1.  React - Go to http://localhost:12001/
-1.  CouchDB - Go to http://localhost:12002/_utils/
+## one-command-start
+
+1. install docker
+1. `$ git clone <url>`
+1. `$ cd t4sk2`
+1. `$ docker-compose up -d` (installs and run couchdb container)
+   1. `$ docker-compose up --build --force-recreate -d` (might be useful if you are doing development with docker instead of local machine)
+1. React - http://localhost:12001/
+1. CouchDB - http://localhost:12002/_utils/
+
+## Setup Local Dev Env
+
+1. install docker
+1. install git
+1. install node
+   1. https://github.com/creationix/nvm
+1. `$ git clone <url>`
+1. `$ cd t4sk2`
+1. `$ docker-compose up -d database`
+1. `$ npm install`
+1. `$ npm start`
+1. React - http://localhost:3000/
+1. CouchDB - http://localhost:12002/_utils/
 
 # TODOLIST
 

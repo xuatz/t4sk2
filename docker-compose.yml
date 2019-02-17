@@ -2,18 +2,17 @@ version: "3.1"
 
 services:
   client:
-    image: t4sk2:development
-    restart: always
+    image: t4sk2:dev
     build:
       context: .
       dockerfile: ./resources/Dockerfile.dev
     volumes:
-      - .:/code
+      - ./src:/code/src
+      - ./package.json:/code/package.json
     ports:
       - 12001:3000
   database:
     image: couchdb:latest
-    restart: always
     volumes:
       - ./tmp/couchdb:/opt/couchdb/data
     ports:
