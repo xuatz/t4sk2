@@ -5,7 +5,7 @@ import "./App.css";
 import { PreviousMap } from "postcss";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store";
-import Main from "./components/Main";
+import Root from "./components/Root";
 
 class App extends Component {
   render() {
@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Main />
+            <Root />
           </PersistGate>
         </Provider>
       </div>
