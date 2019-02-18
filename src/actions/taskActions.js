@@ -1,5 +1,6 @@
 import uuid from "uuid/v4";
-import PouchDB from "pouchdb";
+
+import Tasks from "../models/tasks";
 
 export const taskAdd = task => {
   return (dispatch, getState) => {
