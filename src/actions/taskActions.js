@@ -3,10 +3,10 @@ import uuid from "uuid/v4";
 import Tasks from "../models/tasks";
 
 export const taskAdd = task => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const now = new Date();
     const newTask = {
-      id: uuid(),
+      _id: uuid(),
       userId: undefined, // TODO
       createdAt: now.getTime() / 1000,
       createdBy: undefined, // TODO
@@ -15,11 +15,41 @@ export const taskAdd = task => {
       dueDate: undefined, // TODO
       category: undefined, // TODO
       tags: undefined, // TODO
-      ...task
+      ...task,
+      sync: {
+        status: "dirty"
+      }
     };
     dispatch({ type: "TASK_ADD", task: newTask });
-    let state = getState();
-    return Promise.resolve({ status: 200 });
+
+    try {
+      const res = await Tasks.put(newTask);
+      if (res.ok) {
+        dispatch({
+          type: "TASK_UPDATE",
+          task: {
+            _id: newTask._id,
+            sync: {
+              status: "synced"
+            }
+          }
+        });
+      }
+      let state = getState();
+      return Promise.resolve({ status: 200 });
+    } catch (e) {
+      console.error(e);
+      dispatch({
+        type: "TASK_UPDATE",
+        task: {
+          _id: newTask._id,
+          sync: {
+            status: "failed"
+          }
+        }
+      });
+      return Promise.resolve({ status: 500 });
+    }
   };
 };
 
