@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 
 const styles = {
   headerContainer: {
@@ -23,11 +24,13 @@ class Header extends Component {
     return (
       <div style={styles.headerContainer}>
         <ol>
-          <li style={styles.li}>
-            <a href="bikes">Dashboard</a>
-          </li>
+          <Link to="/">Dashboard</Link>
           <li style={styles.li}>
             <a href="bikes">Audit</a>
+          </li>
+          <Link to="admin">Admin</Link>
+          <li style={styles.li}>
+            <a onClick={() => alert("hi")}>Admin</a>
           </li>
         </ol>
         <button

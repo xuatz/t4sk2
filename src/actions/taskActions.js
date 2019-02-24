@@ -8,9 +8,9 @@ export const taskAdd = task => {
     const newTask = {
       _id: uuid(),
       userId: undefined, // TODO
-      createdAt: now.getTime() / 1000,
+      createdAt: now.toISOString(),
       createdBy: undefined, // TODO
-      modifiedAt: now.getTime() / 1000,
+      modifiedAt: now.toISOString(),
       modifiedBy: undefined, // TODO
       dueDate: undefined, // TODO
       category: undefined, // TODO
@@ -23,7 +23,13 @@ export const taskAdd = task => {
     dispatch({ type: "TASK_ADD", task: newTask });
 
     try {
-      const res = await Tasks.put(newTask);
+      function cleanup(doc) {
+        if (doc.sync) {
+          delete doc.sync;
+        }
+        return doc;
+      }
+      const res = await Tasks.put(cleanup(newTask));
       if (res.ok) {
         dispatch({
           type: "TASK_UPDATE",

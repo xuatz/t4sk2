@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { Router, Link } from "@reach/router";
 
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -14,10 +15,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import * as actions from "../../actions/taskActions";
 
 import TaskItem from "../TaskItem";
-import TaskDetails from "../TaskDetails";
 
 import Header from "./Header";
-import Stats from "./Stats";
+import Dashboard from "../Dashboard";
+import Admin from "../Admin";
 
 const mapStateToProps = state => {
   return {
@@ -125,84 +126,82 @@ class Main extends Component {
 
   render() {
     return (
-      <div>
-        <MainContainer>
-          <LeftPanel>
-            <div style={{ height: "20vh" }}>
-              <form
-                style={{ padding: "30px 0px" }}
-                onSubmit={e => {
-                  e.preventDefault();
-                  this.taskAdd(this.state.taskTitle);
+      <MainContainer>
+        <LeftPanel>
+          <div style={{ height: "20vh" }}>
+            <form
+              style={{ padding: "30px 0px" }}
+              onSubmit={e => {
+                e.preventDefault();
+                this.taskAdd(this.state.taskTitle);
+              }}>
+              <input
+                style={{
+                  fontSize: "1.5em",
+                  padding: "10px"
+                }}
+                value={this.state.taskTitle}
+                onChange={e => {
+                  this.setState({
+                    taskTitle: e.target.value
+                  });
+                }}
+              />
+            </form>
+          </div>
+          <div style={{ height: "80vh", overflow: "auto" }}>
+            {this.props.tasks && (
+              <List
+                dense={false}
+                style={{
+                  margin: "auto",
+                  width: "100%",
+                  maxWidth: 360
                 }}>
-                <input
-                  style={{
-                    fontSize: "1.5em",
-                    padding: "10px"
-                  }}
-                  value={this.state.taskTitle}
-                  onChange={e => {
-                    this.setState({
-                      taskTitle: e.target.value
-                    });
-                  }}
-                />
-              </form>
-            </div>
-            <div style={{ height: "80vh", overflow: "auto" }}>
-              {this.props.tasks && (
-                <List
-                  dense={false}
-                  style={{
-                    margin: "auto",
-                    width: "100%",
-                    maxWidth: 360
-                  }}>
-                  {this.props.tasks.map((task, key) => {
-                    return (
-                      <TaskItem
-                        key={key}
-                        task={task}
-                        onClickItem={this.handleOnClickItem}
-                        onClickDelete={this.handleOnClickDelete}
-                      />
-                    );
-                  })}
-                </List>
-              )}
-              <Dialog
-                maxWidth="xs"
-                aria-labelledby="confirmation-dialog-title"
-                open={this.state.isDeleteTaskDialogOpen}
-                onClose={this.handleCancel}
-                onBackdropClick={this.handleCancel}
-                value="demoValue">
-                <DialogTitle id="confirmation-dialog-title">
-                  Are you sure you want to delete?
-                </DialogTitle>
-                <DialogContent>
-                  <span>hey</span>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.handleOnClickCancel} color="primary">
-                    Cancel
-                  </Button>
-                  <Button onClick={this.handleOnClickOkay} color="primary">
-                    Ok
-                  </Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </LeftPanel>
-          <RightPanel>
-            <Header logout={this.props.logout} />
-            <Stats />
-            {this.state.selectedTask && (
-              <TaskDetails task={this.state.selectedTask} />
+                {this.props.tasks.map((task, key) => {
+                  return (
+                    <TaskItem
+                      key={key}
+                      task={task}
+                      onClickItem={this.handleOnClickItem}
+                      onClickDelete={this.handleOnClickDelete}
+                    />
+                  );
+                })}
+              </List>
             )}
-          </RightPanel>
-        </MainContainer>
-      </div>
+            <Dialog
+              maxWidth="xs"
+              aria-labelledby="confirmation-dialog-title"
+              open={this.state.isDeleteTaskDialogOpen}
+              onClose={this.handleCancel}
+              onBackdropClick={this.handleCancel}
+              value="demoValue">
+              <DialogTitle id="confirmation-dialog-title">
+                Are you sure you want to delete?
+              </DialogTitle>
+              <DialogContent>
+                <span>hey</span>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleOnClickCancel} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.handleOnClickOkay} color="primary">
+                  Ok
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </LeftPanel>
+        <RightPanel>
+          <Header logout={this.props.logout} />
+          <Router>
+            <Dashboard path="/" task={this.state.selectedTask} />
+            <Admin path="/admin" />
+          </Router>
+        </RightPanel>
+      </MainContainer>
     );
   }
 }
