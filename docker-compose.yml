@@ -1,4 +1,4 @@
-version: "3.1"
+version: "2.4"
 
 services:
   client:
@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./resources/Dockerfile.dev
+    restart: always
     volumes:
       - ./src:/code/src
       - ./package.json:/code/package.json
@@ -13,6 +14,7 @@ services:
       - 12001:3000
   database:
     image: couchdb:latest
+    restart: always
     volumes:
       - ./tmp/couchdb:/opt/couchdb/data
     ports:
