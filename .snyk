@@ -1,0 +1,26 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - react-scripts > @babel/core > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > babel-eslint > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > babel-preset-react-app > @babel/core > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > @svgr/webpack > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > babel-preset-react-app > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > babel-preset-react-app > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > @svgr/webpack > @svgr/plugin-jsx > @babel/core > @babel/traverse > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > @svgr/webpack > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
+    - react-scripts > babel-preset-react-app > @babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/types > lodash:
+        patched: '2019-07-10T23:57:55.991Z'
