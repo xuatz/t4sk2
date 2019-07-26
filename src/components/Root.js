@@ -22,7 +22,7 @@ class Root extends Component {
   render() {
     return (
       <>
-        {this.state.isLoggedIn ? (
+        {true ? (
           <Main logout={this.loggout} />
         ) : (
           <Public login={this.login} />
@@ -33,7 +33,3 @@ class Root extends Component {
 }
 
 export default Root;
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Root);
