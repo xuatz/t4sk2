@@ -1,8 +1,8 @@
-FROM node:9.11.2
+FROM node:11
 
 RUN mkdir -p /code
 COPY . /code
 WORKDIR /code
-RUN npm install
+RUN yarn install
 
-CMD ["npm", "run", "start"]
+CMD ["yarn", "run", "start"]
