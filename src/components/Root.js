@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import Main from "./Main";
-import Public from "./Public";
+import React, { Component } from 'react';
+import Main from './Main';
+import Public from './Public';
 
 class Root extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
   };
 
   login = () => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: true,
     });
   };
 
-  loggout = () => {
+  logout = () => {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
     });
   };
 
@@ -33,7 +33,3 @@ class Root extends Component {
 }
 
 export default Root;
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Root);
