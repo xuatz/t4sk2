@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+
+import TaskList from '../TaskList';
+
+import * as actions from '../../actions/taskActions';
 
 const TaskInput = props => {
   const [title, setTitle] = useState('');
 
   return (
-    <div css={props.style}>
+    <div
+      css={css`
+        margin: 20px 30px;
+      `}>
       <form
-        style={{
-          padding: '30px 20px',
-          backgroundColor: 'red',
-          display: 'flex',
-        }}
         onSubmit={e => {
           e.preventDefault();
           if (title && title != '') {
@@ -22,8 +25,7 @@ const TaskInput = props => {
         }}>
         <input
           style={{
-            flex: 1,
-            backgroundColor: 'grey',
+            width: '100%',
             fontSize: '1.5em',
             padding: '10px 0px',
           }}
@@ -35,8 +37,6 @@ const TaskInput = props => {
   );
 };
 
-const TaskList = props => <div css={props.style}>TaskList</div>;
-
 const TaskDetail = props => <div css={props.style}>TaskDetail</div>;
 
 const styles = {
@@ -44,7 +44,7 @@ const styles = {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 20px;
+    height: 100%;
 
     @media (min-width: 480px) {
       flex-direction: row;
@@ -53,6 +53,7 @@ const styles = {
     }
   `,
   leftContainer: css`
+    background-color: teal;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -65,11 +66,10 @@ const styles = {
       flex: 2;
     }
   `,
-  taskInput: css`
-    flex: 2;
-  `,
+  taskInput: css``,
   taskList: css`
-    flex: 1;
+    height: 80vh;
+    overflow: auto;
   `,
 };
 
@@ -77,12 +77,27 @@ const Main2 = props => {
   return (
     <div css={styles.mainContainer}>
       <div css={styles.leftContainer}>
-        <TaskInput style={styles.taskInput} />
-        <TaskList style={styles.taskList} />
+        <div css={styles.taskInput}>
+          <TaskInput />
+        </div>
+        <div css={styles.taskList}>
+          <TaskList tasks={props.tasks} />
+        </div>
       </div>
-      <TaskDetail style={styles.rightContainer} />
+      {false && <TaskDetail style={styles.rightContainer} />}
     </div>
   );
 };
 
-export default Main2;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks,
+  };
+};
+
+const mapDispatchToProps = actions;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main2);
