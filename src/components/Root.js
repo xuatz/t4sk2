@@ -1,39 +1,31 @@
-import React, { Component } from "react";
-import Main from "./Main";
-import Public from "./Public";
+import React, { Component } from 'react';
+import Main2 from './Main2';
 
 class Root extends Component {
   state = {
-    isLoggedIn: false
+    isLoggedIn: false,
   };
 
   login = () => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: true,
     });
   };
 
-  loggout = () => {
+  logout = () => {
     this.setState({
-      isLoggedIn: false
+      isLoggedIn: false,
     });
   };
 
   render() {
     return (
       <>
-        {this.state.isLoggedIn ? (
-          <Main logout={this.loggout} />
-        ) : (
-          <Public login={this.login} />
-        )}
+        <Main2 />
+        {/* {true ? <Main logout={this.loggout} /> : <Public login={this.login} />} */}
       </>
     );
   }
 }
 
 export default Root;
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Root);
