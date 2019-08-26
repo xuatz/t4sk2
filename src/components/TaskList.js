@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import List from '@material-ui/core/List';
 import TaskItem from './TaskItem';
 
@@ -17,7 +17,7 @@ const TaskList = props => (
             key={key}
             task={task}
             // onClickItem={this.handleOnClickItem}
-            // onClickDelete={this.handleOnClickDelete}
+            onClickDelete={props.onClickDelete}
           />
         );
       })}
