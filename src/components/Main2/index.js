@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useState } from 'react';
+import { connect } from 'react-redux';
 
 import TaskList from '../TaskList';
 
@@ -15,8 +15,7 @@ const TaskInput = props => {
       <form
         onSubmit={e => {
           e.preventDefault();
-          if (title && title != '') {
-            console.log(title);
+          if (title && title !== '') {
             props.taskAdd({ title });
             setTitle('');
           }
@@ -95,7 +94,7 @@ const Main2 = props => {
           <TaskInput taskAdd={props.taskAdd} />
         </div>
         <div css={styles.taskList}>
-          <TaskList tasks={props.tasks} />
+          <TaskList onClickDelete={props.taskDelete} tasks={props.tasks} />
         </div>
       </div>
       <div css={styles.rightContainer}>
