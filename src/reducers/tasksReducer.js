@@ -1,17 +1,28 @@
 const initialState = [];
 
 export default (state = initialState, action) => {
-    switch (action.type) {
-        case "TASK_ADD":
-            return [action.task, ...state];
-        case "TASK_DELETE":
-            let index = state.findIndex(item => item.id === action.id);
-            if (index !== -1) {
-                return [...state.slice(0, index), ...state.slice(index + 1)];
-            } else {
-                return state;
-            }
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'persist/REHYDRATE':
+      return action.payload.tasks.filter(item => !item.isSoftDeleted);
+    case 'TASK_ADD':
+      return [action.task, ...state];
+    case 'TASK_DELETE':
+      return state.map(item => {
+        if (item._id === action.id) {
+          item.isSoftDeleted = true;
+          return item;
+        }
+        return item;
+      });
+    case 'TASK_RESTORE':
+      return state.map(item => {
+        if (item._id === action.id) {
+          item.isSoftDeleted = false;
+          return item;
+        }
+        return item;
+      });
+    default:
+      return state;
+  }
 };
