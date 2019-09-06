@@ -1,6 +1,6 @@
-import uuid from "uuid/v4";
+import uuid from 'uuid/v4';
 
-import Tasks from "../models/tasks";
+import Tasks from '../models/tasks';
 
 export const taskAdd = task => {
   return async (dispatch, getState) => {
@@ -17,36 +17,35 @@ export const taskAdd = task => {
       tags: undefined, // TODO
       ...task,
       sync: {
-        status: "dirty"
-      }
+        status: 'dirty',
+      },
     };
-    dispatch({ type: "TASK_ADD", task: newTask });
+    dispatch({ type: 'TASK_ADD', task: newTask });
 
     try {
       const res = await Tasks.put(newTask);
       if (res.ok) {
         dispatch({
-          type: "TASK_UPDATE",
+          type: 'TASK_UPDATE',
           task: {
             _id: newTask._id,
             sync: {
-              status: "synced"
-            }
-          }
+              status: 'synced',
+            },
+          },
         });
       }
-      let state = getState();
       return Promise.resolve({ status: 200 });
     } catch (e) {
       console.error(e);
       dispatch({
-        type: "TASK_UPDATE",
+        type: 'TASK_UPDATE',
         task: {
           _id: newTask._id,
           sync: {
-            status: "failed"
-          }
-        }
+            status: 'failed',
+          },
+        },
       });
       return Promise.resolve({ status: 500 });
     }
@@ -55,7 +54,7 @@ export const taskAdd = task => {
 
 export const taskDelete = id => {
   return dispatch => {
-    dispatch({ type: "TASK_DELETE", id });
+    dispatch({ type: 'TASK_DELETE', id });
     return Promise.resolve({ status: 200 });
   };
 };
