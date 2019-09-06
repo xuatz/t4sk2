@@ -94,7 +94,11 @@ const Main2 = props => {
           <TaskInput taskAdd={props.taskAdd} />
         </div>
         <div css={styles.taskList}>
-          <TaskList onClickDelete={props.taskDelete} tasks={props.tasks} />
+          <TaskList
+            tasks={props.tasks}
+            onClickDelete={props.taskDelete}
+            onClickRestore={props.taskRestore}
+          />
         </div>
       </div>
       <div css={styles.rightContainer}>
@@ -104,11 +108,9 @@ const Main2 = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    tasks: state.tasks,
-  };
-};
+const mapStateToProps = state => ({
+  tasks: state.tasks,
+});
 
 const mapDispatchToProps = actions;
 

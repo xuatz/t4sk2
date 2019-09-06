@@ -62,3 +62,23 @@ Tasks that:
     1.  no. of overdue
     1.  no. of upcoming (within 4 days?)
     1.  total no. of tasks
+
+# Blog for myself
+
+## Friday, Sep 6, 2019
+
+### What have I done today
+
+- isSoftDeleted field for task
+- implement strikeout greyout effect for soft deleted tasks
+- implement cleanup job in rehydrate action
+- implement taskRestore action and associated UI effect
+
+### What I plan to do next episode
+
+- highlight task when `onClickTask()`
+- support for truncate long title
+- support for secondary text (task.body)
+- support for on click expand truncated text
+- support for `onDrag` arrange
+- support for `TaskDetails` component for mobile

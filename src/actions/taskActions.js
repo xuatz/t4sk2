@@ -58,3 +58,10 @@ export const taskDelete = id => {
     return Promise.resolve({ status: 200 });
   };
 };
+
+export const taskRestore = id => {
+  return dispatch => {
+    dispatch({ type: 'TASK_RESTORE', id });
+    return Promise.resolve({ status: 200 });
+  };
+};

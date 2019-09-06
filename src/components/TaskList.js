@@ -18,6 +18,7 @@ const TaskList = props => (
             task={task}
             // onClickItem={this.handleOnClickItem}
             onClickDelete={props.onClickDelete}
+            onClickRestore={props.onClickRestore}
           />
         );
       })}
