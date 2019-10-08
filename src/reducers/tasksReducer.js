@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
       return [action.task, ...state];
     case 'TASK_DELETE':
       return state.map(item => {
-        if (item._id === action.id) {
+        if (item._id === action._id) {
           item.isSoftDeleted = true;
           return item;
         }
@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       });
     case 'TASK_RESTORE':
       return state.map(item => {
-        if (item._id === action.id) {
+        if (item._id === action._id) {
           item.isSoftDeleted = false;
           return item;
         }

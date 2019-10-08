@@ -52,16 +52,16 @@ export const taskAdd = task => {
   };
 };
 
-export const taskDelete = id => {
+export const taskDelete = _id => {
   return dispatch => {
-    dispatch({ type: 'TASK_DELETE', id });
+    dispatch({ type: 'TASK_DELETE', _id });
     return Promise.resolve({ status: 200 });
   };
 };
 
-export const taskRestore = id => {
+export const taskRestore = _id => {
   return dispatch => {
-    dispatch({ type: 'TASK_RESTORE', id });
+    dispatch({ type: 'TASK_RESTORE', _id });
     return Promise.resolve({ status: 200 });
   };
 };

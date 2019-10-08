@@ -63,7 +63,7 @@ class Main extends Component {
   };
 
   handleOnClickOkay = () => {
-    this.props.taskDelete(this.state.focusedTask.id).then(res => {
+    this.props.taskDelete(this.state.focusedTask._id).then(res => {
       if (res.status === 200) {
         this.setState({
           isDeleteTaskDialogOpen: false,
@@ -133,7 +133,7 @@ class Main extends Component {
               onClose={this.handleCancel}
               onBackdropClick={this.handleCancel}
               value="demoValue">
-              <DialogTitle id="confirmation-dialog-title">
+              <DialogTitle _id="confirmation-dialog-title">
                 Are you sure you want to delete?
               </DialogTitle>
               <DialogContent>

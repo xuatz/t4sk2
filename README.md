@@ -73,12 +73,12 @@ Tasks that:
 - implement strikeout greyout effect for soft deleted tasks
 - implement cleanup job in rehydrate action
 - implement taskRestore action and associated UI effect
+- highlight task when `onClickTask()`
 
 ### What I plan to do next episode
 
-- highlight task when `onClickTask()`
-- support for truncate long title
 - support for secondary text (task.body)
+- support for truncate long title
 - support for on click expand truncated text
 - support for `onDrag` arrange
 - support for `TaskDetails` component for mobile

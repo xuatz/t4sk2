@@ -8,9 +8,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 
 const TaskItem = props => {
-  const { task, onClickDelete, onClickRestore } = props;
+  const {
+    task,
+    onClickDelete,
+    onClickRestore,
 
-  const handleOnClick = () => {
+    activeTaskId,
+    setActiveTaskId,
+  } = props;
+
+  const handleOnClickItem = () => {
+    setActiveTaskId(task._id);
+  };
+
+  const handleOnClickDelete = () => {
     if (task.isSoftDeleted) {
       onClickRestore(task._id);
     } else {
@@ -18,8 +29,15 @@ const TaskItem = props => {
     }
   };
 
+  const isActive = activeTaskId === task._id;
+
   return (
-    <ListItem>
+    <ListItem
+      style={{
+        ...(isActive && {
+          backgroundColor: 'green',
+        }),
+      }}>
       <ListItemText
         style={
           task.isSoftDeleted
@@ -31,17 +49,17 @@ const TaskItem = props => {
         }
         primary={task.title}
         secondary="Placeholder secondary text"
-        secondaryTypographyProps={{
-          color: 'grey',
-        }}
-        onClick={() => {
-          // this.props.onClickItem(this.props.task);
-        }}
+        secondaryTypographyProps={
+          {
+            // color: 'grey',
+          }
+        }
+        onClick={handleOnClickItem}
       />
       <ListItemSecondaryAction>
         <IconButton
           aria-label={task.isSoftDeleted ? 'Restore' : 'Delete'}
-          onClick={handleOnClick}>
+          onClick={handleOnClickDelete}>
           {task.isSoftDeleted ? <RestoreFromTrashIcon /> : <DeleteIcon />}
         </IconButton>
       </ListItemSecondaryAction>

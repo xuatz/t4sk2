@@ -27,10 +27,7 @@ const TaskInput = props => {
             padding: '10px 0px',
           }}
           value={title}
-          onChange={e => {
-            console.log('e.target.value', e.target.value);
-            setTitle(e.target.value);
-          }}
+          onChange={e => setTitle(e.target.value)}
         />
       </form>
     </div>
