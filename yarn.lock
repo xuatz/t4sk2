@@ -1479,6 +1479,11 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
+"@snyk/protect@^1.946.0":
+  version "1.946.0"
+  resolved "https://registry.yarnpkg.com/@snyk/protect/-/protect-1.946.0.tgz#4960ad4079145615d16fcbf2644ef016f08a7fdc"
+  integrity sha512-LdqVSuI3gFX87dLfZsUvlb5lp7XuURa22uY2oDuOyNxk4Z0gsSOoYxYrFXUW2RreH+mch1T6rU5HztQkoL38YQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.0.0.tgz#5acf239cd2747b1a36ec7e708de05d914cb9b948"
