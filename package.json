@@ -7,7 +7,9 @@
     "build": "react-scripts build",
     "now-build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "husky": {
     "hooks": {
@@ -26,7 +28,8 @@
     "redux-persist": "^5.9.1",
     "redux-thunk": "^2.2.0",
     "styled-components": "^3.2.6",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "husky": "^3.0.1",
@@ -38,5 +41,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "snyk": true
 }
